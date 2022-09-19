@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import './App.css'
+import clickOne from './assets/click1.wav'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [bpm, setBPM] = useState(88)
+	const [playing, setPlaying] = useState(false)
+
+  const click1 = new Audio(clickOne)
+
+  function playingHandler() {
+    if (playing) {
+      clearInterval(timer)
+      setPlaying(false)
+    } else {
+      let timer = setInterval()
+    }
+    click1.play()
+  }
+
+	return (
+		<div className="met-container">
+			<h1>React Metronome</h1>
+			<div className="bpm-text">{bpm} BPM</div>
+			<div className="bpm-slider">
+				<input
+					type="range"
+					min="60"
+					max="240"
+					id="slider"
+					value={bpm}
+					onChange={e => setBPM(e.target.value)}
+				/>
+			</div>
+			<button className="button" onClick={playingHandler}>{playing ? 'Stop' : 'Start'}</button>
+		</div>
+	)
 }
 
-export default App;
+export default App
